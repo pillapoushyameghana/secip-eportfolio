@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team 17 · SECIP 2026 — Poushya Meghana's ePortfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF6EA;
+    --paper-dark:#F1E8D4;
+    --kraft:#E7D8B2;
+    --kraft-dark:#D8C296;
+    --ink:#232F3E;
+    --ink-soft:#5C6774;
+    --coral:#C1442E;
+    --coral-dark:#9E3521;
+    --amber:#E9A61B;
+    --teal:#2F7A6F;
+    --line:#C7B98F;
+    --shadow: 4px 6px 0 rgba(35,47,62,0.10);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    line-height:1.65;
+  }
+
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+  .display{font-family:'Space Grotesk', sans-serif;}
+
+  a{color:var(--coral-dark);}
+  a:focus-visible, button:focus-visible, .chip:focus-visible{
+    outline:3px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  /* ---------- paper texture ---------- */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.5;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(35,47,62,0.03) 0, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(35,47,62,0.03) 0, transparent 40%);
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper);
+    border-bottom:2px solid var(--ink);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0.7rem 1.4rem;
+    flex-wrap:wrap; gap:0.5rem;
+  }
+  nav .brand{font-size:0.85rem; font-weight:600; text-transform:uppercase;}
+  nav ul{list-style:none; display:flex; gap:1.1rem; margin:0; padding:0; flex-wrap:wrap;}
+  nav a{
+    text-decoration:none; color:var(--ink); font-size:0.78rem;
+    text-transform:uppercase; padding:0.25rem 0; border-bottom:2px solid transparent;
+  }
+  nav a:hover{border-bottom-color:var(--coral);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; z-index:1;
+    padding:4.5rem 1.4rem 3rem;
+    max-width:980px; margin:0 auto;
+  }
+  .stamp{
+    display:inline-block;
+    font-size:0.72rem;
+    padding:0.3rem 0.65rem;
+    border:1.5px solid var(--ink);
+    border-radius:2px;
+    transform:rotate(-2deg);
+    margin-bottom:1.4rem;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5rem);
+    line-height:0.98;
+    margin:0 0 0.3rem;
+    font-weight:700;
+  }
+  .hero h1 span{color:var(--coral);}
+  .hero .arrow-line{
+    display:flex; align-items:center; gap:0.8rem;
+    font-size:clamp(1.2rem, 3vw, 1.7rem);
+    color:var(--ink-soft);
+    margin-bottom:1.6rem;
+  }
+  .hero .arrow-line svg{flex-shrink:0;}
+  .hero p.tagline{
+    max-width:52ch; font-size:1.15rem; color:var(--ink-soft);
+  }
+  .hero .meta{
+    margin-top:2rem; font-size:0.78rem; color:var(--ink-soft);
+    display:flex; flex-wrap:wrap; gap:0.4rem 1.4rem;
+  }
+  .hero .meta b{color:var(--ink);}
+
+  /* ---------- day tape ---------- */
+  .tape-wrap{
+    position:relative; z-index:1;
+    background:var(--kraft);
+    border-top:2px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+    padding:1.3rem 0;
+    overflow-x:auto;
+  }
+  .tape-wrap p.label{
+    max-width:980px; margin:0 auto 0.8rem; padding:0 1.4rem;
+    font-size:0.72rem; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .tape{
+    display:flex; gap:0.9rem; padding:0 1.4rem 0.4rem;
+    max-width:1100px; margin:0 auto; width:max-content; min-width:100%;
+  }
+  .chip{
+    flex:0 0 auto;
+    background:var(--paper);
+    border:1.5px solid var(--ink);
+    box-shadow:var(--shadow);
+    padding:0.6rem 0.85rem;
+    min-width:118px;
+    cursor:pointer;
+    text-align:left;
+    font-family:inherit;
+    color:var(--ink);
+  }
+  .chip:nth-child(odd){transform:rotate(-1.4deg);}
+  .chip:nth-child(even){transform:rotate(1.2deg);}
+  .chip:hover{background:var(--amber); border-color:var(--ink);}
+  .chip .d{font-size:0.68rem; font-weight:600; display:block; margin-bottom:0.2rem;}
+  .chip .k{font-size:0.85rem; font-family:'Space Grotesk',sans-serif; font-weight:600; display:block;}
+
+  /* ---------- entries ---------- */
+  main{max-width:900px; margin:0 auto; padding:0 1.4rem; position:relative; z-index:1;}
+
+  .entry{
+    background:var(--paper-dark);
+    border:1.5px solid var(--ink);
+    box-shadow:var(--shadow);
+    margin:3.2rem 0;
+    padding:2.6rem clamp(1.3rem,4vw,3rem);
+    position:relative;
+  }
+  .entry::before{
+    content:"";
+    position:absolute; top:-1.5px; left:1.4rem; right:1.4rem; height:10px;
+    background:repeating-linear-gradient(90deg, transparent 0 10px, var(--paper-dark) 10px 22px);
+    clip-path:polygon(0 100%,4% 0,8% 100%,12% 0,16% 100%,20% 0,24% 100%,28% 0,32% 100%,36% 0,40% 100%,44% 0,48% 100%,52% 0,56% 100%,60% 0,64% 100%,68% 0,72% 100%,76% 0,80% 100%,84% 0,88% 100%,92% 0,96% 100%,100% 0);
+  }
+  .entry .kicker{
+    font-size:0.72rem; text-transform:uppercase; color:var(--coral-dark);
+    margin-bottom:0.6rem; display:block;
+  }
+  .entry h2{
+    font-family:'Space Grotesk',sans-serif; font-size:clamp(1.7rem,4vw,2.4rem);
+    margin:0 0 1.4rem; line-height:1.12;
+  }
+  .entry p{margin:0 0 1.05rem; font-size:1.03rem;}
+  .entry p:first-of-type::first-letter{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:2.6rem; font-weight:700; color:var(--coral);
+    float:left; line-height:0.85; padding-right:0.35rem; padding-top:0.2rem;
+  }
+  .pullquote{
+    font-family:'Space Grotesk',sans-serif; font-weight:600;
+    font-size:1.15rem; color:var(--teal);
+    border-left:3px solid var(--teal);
+    padding-left:1rem; margin:1.6rem 0;
+  }
+
+  /* ---------- prototype spotlight ---------- */
+  .spotlight{
+    background:var(--ink); color:var(--paper);
+    border:1.5px solid var(--ink);
+    box-shadow:var(--shadow);
+    margin:3.2rem 0; padding:2.6rem clamp(1.3rem,4vw,3rem);
+  }
+  .spotlight .kicker{color:var(--amber); font-size:0.72rem; text-transform:uppercase; display:block; margin-bottom:0.5rem;}
+  .spotlight h2{font-family:'Space Grotesk',sans-serif; font-size:clamp(1.7rem,4vw,2.3rem); margin:0 0 0.6rem;}
+  .spotlight p.desc{color:#C8CFD8; max-width:62ch; font-size:1.02rem; margin-bottom:1.8rem;}
+  .spotlight .links{margin-bottom:2.2rem; display:flex; gap:1rem; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:0.8rem;
+    text-decoration:none; padding:0.65rem 1.1rem; border:1.5px solid var(--paper);
+    color:var(--paper); text-transform:uppercase;
+  }
+  .btn:hover{background:var(--paper); color:var(--ink);}
+  .btn.solid{background:var(--coral); border-color:var(--coral); color:var(--paper);}
+  .btn.solid:hover{background:var(--coral-dark); border-color:var(--coral-dark); color:var(--paper);}
+
+  .deck-area{
+    display:grid; grid-template-columns:1fr; gap:2rem; align-items:start;
+  }
+  @media(min-width:760px){ .deck-area{grid-template-columns:1fr 1fr;} }
+
+  .deck-note{font-size:0.9rem; color:#C8CFD8;}
+  .deck-note b{color:var(--amber);}
+
+  .phone-frame{
+    width:220px; margin:0 auto;
+    background:var(--kraft-dark);
+    border:3px solid #2b2118;
+    border-radius:22px;
+    padding:14px 12px 20px;
+    box-shadow:6px 8px 0 rgba(0,0,0,0.35);
+    position:relative;
+  }
+  .phone-frame::after{
+    content:"cardboard prototype, day 4";
+    position:absolute; bottom:-1.6rem; left:0; right:0; text-align:center;
+    font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:#8a95a2;
+    text-transform:uppercase;
+  }
+  .phone-screen{
+    background:var(--paper); border-radius:10px; padding:0.9rem 0.8rem 1.2rem;
+    min-height:280px; display:flex; flex-direction:column; align-items:center;
+    position:relative; overflow:hidden;
+  }
+  .tutor-card{
+    width:100%; background:var(--paper); border:1.5px solid var(--ink);
+    padding:1rem 0.9rem; text-align:left;
+    transform:rotate(0deg);
+    transition:transform 0.35s ease, opacity 0.35s ease;
+  }
+  .tutor-card.leaving{transform:translateX(120%) rotate(12deg); opacity:0;}
+  .tutor-card .name{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.05rem; color:var(--ink);}
+  .tutor-card .grade{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:var(--ink-soft); text-transform:uppercase; display:block; margin-bottom:0.5rem;}
+  .tutor-card .row{font-size:0.82rem; margin:0.15rem 0; color:var(--ink);}
+  .tutor-card .row b{color:var(--coral-dark);}
+  .swipe-btns{display:flex; gap:0.6rem; margin-top:1rem;}
+  .swipe-btns button{
+    font-family:'IBM Plex Mono',monospace; font-size:0.72rem; text-transform:uppercase;
+    border:1.5px solid var(--ink); background:var(--paper); color:var(--ink);
+    padding:0.45rem 0.7rem; cursor:pointer;
+  }
+  .swipe-btns button.match{background:var(--teal); color:var(--paper); border-color:var(--teal);}
+  .swipe-btns button.pass{background:var(--coral); color:var(--paper); border-color:var(--coral);}
+  .swipe-status{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:var(--ink-soft);
+    margin-top:0.7rem; min-height:1.2em;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--ink); color:#C8CFD8;
+    padding:2.4rem 1.4rem; text-align:center;
+    font-size:0.8rem; position:relative; z-index:1;
+  }
+  footer .fname{font-family:'Space Grotesk',sans-serif; color:var(--paper); font-size:1.05rem; margin-bottom:0.3rem;}
+  footer a{color:var(--amber);}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<nav>
+  <span class="brand mono">Team 17 · SECIP 2026</span>
+  <ul class="mono">
+    <li><a href="#week1">Week One</a></li>
+    <li><a href="#week2">Week Two</a></li>
+    <li><a href="#final">Final Reflection</a></li>
+    <li><a href="#prototype">Prototype</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <span class="stamp mono">ePortfolio · SDG 4, Quality Education</span>
+  <h1 class="display">TEAM 17<br><span>&rarr; EDUBRIDGE</span></h1>
+  <div class="arrow-line mono">10 days. One whiteboard wall. Countless sticky notes.</div>
+  <p class="tagline">This is my learning journal from SECIP — the story of how a mind-map on Sustainable Development Goal 4 turned into a peer-to-peer tutoring platform, told through what I actually learned along the way, not just what we built.</p>
+  <div class="meta mono">
+    <span><b>Poushya Meghana</b></span>
+    <span>O.P. Jindal Global University</span>
+    <span>Team 17 &middot; SDG 4: Quality Education</span>
+    <span>SECIP Intensive Program, 2026</span>
+  </div>
+</header>
+
+<div class="tape-wrap">
+  <p class="label mono">the ten days, at a glance — tap a day to jump to that week's reflection</p>
+  <div class="tape">
+    <button class="chip mono" data-jump="week1"><span class="d">DAY 01</span><span class="k">Networking &amp; Panels</span></button>
+    <button class="chip mono" data-jump="week1"><span class="d">DAY 02</span><span class="k">Forming the Team</span></button>
+    <button class="chip mono" data-jump="week1"><span class="d">DAY 03</span><span class="k">Prototyping &amp; Confusion</span></button>
+    <button class="chip mono" data-jump="week1"><span class="d">DAY 04</span><span class="k">The Big Idea</span></button>
+    <button class="chip mono" data-jump="week1"><span class="d">DAY 05</span><span class="k">AI Tools Workshop</span></button>
+    <button class="chip mono" data-jump="week2"><span class="d">DAY 06</span><span class="k">Mentor Feedback</span></button>
+    <button class="chip mono" data-jump="week2"><span class="d">DAY 07</span><span class="k">Business Model Canvas</span></button>
+    <button class="chip mono" data-jump="week2"><span class="d">DAY 08</span><span class="k">Finalizing &amp; Login Page</span></button>
+    <button class="chip mono" data-jump="week2"><span class="d">DAY 09</span><span class="k">Pitch Prep</span></button>
+    <button class="chip mono" data-jump="final"><span class="d">DAY 10</span><span class="k">Final Pitch</span></button>
+  </div>
+</div>
+
+<main>
+
+  <section class="entry reveal" id="week1">
+    <span class="kicker mono">Entry 01 &middot; Week One</span>
+    <h2 class="display">Finding the Right Question</h2>
+
+    <p>SECIP opened not with a lecture but with a name game — introducing myself through adjectives that shared the first sound of my name, a small icebreaker that set the tone for ten days of learning by doing rather than being told. Within the first few days our cohort split into teams, and Team 17 formed around a single Sustainable Development Goal: Quality Education, SDG 4.</p>
+
+    <p>By Day Two, the icebreakers gave way to structure. We were introduced to the stages of group development — forming, storming, norming, performing, adjourning — as a map for what our team was about to live through, and almost immediately we found ourselves in the middle of "forming": mind-mapping around education, and narrowing a huge topic down to something we could actually act on. As Team 17, we chose to look at education through the lens children and youth experience it, circling back again and again to two forces: inequality of access, and a shortage of qualified teachers in under-resourced communities. My contribution in this stage was less about the idea itself and more about the room it needed to form in — making sure a teammate who was less confident speaking English wasn't sidelined, pushing us to open a shared document as a "raw pitch" space where sketches and half-formed thoughts were as welcome as finished sentences, and suggesting we move problem-statement drafts onto WhatsApp so everyone, not just the loudest voice in the room, could weigh in.</p>
+
+    <p class="pullquote">"Coming to a solution is not the hard part — it's not as easy as we think it is. We had to think critically to find the problem first, and take every stakeholder's perspective into account."</p>
+
+    <p>Day Three was where the confusion I'd expected finally arrived. We were deep in prototyping and open-space sessions, genuinely unsure whether our problem statement would survive contact with feedback from the steering committee, and the day ended with us naming our fledgling idea "ThinkIt" over a slightly chaotic group photo that still makes me laugh. Day Four is the day the project actually found its shape. In a rapid-fire ideation sprint, our team generated around fifty ideas and sorted them into buckets — and one bucket, only half-seriously labelled "prototyping Tinder for tutors," turned out to be the one we couldn't stop coming back to: a swipe-based way for students to find peer tutors who complemented their own gaps, teaching in exchange rather than paying. I built a paper version of it that same evening — a cardboard phone case with hand-drawn tutor-profile "cards" you could physically flip through — long before we ever opened a laptop to build it digitally.</p>
+
+    <p>Day Five shifted the toolkit entirely. We spent the day learning to work with AI tools and large language models: how to write and refine prompts, generate images, and use AI as a genuine part of the design process rather than a shortcut around it. Writing a short snippet of code to generate a graph of rhino population data was a strange but clarifying exercise — it reminded me that the prompting instincts I was building for our education project were transferable well beyond it.</p>
+
+    <p>If I had to name what Week One actually taught me, it's three things: that empathy is a design skill and not a soft add-on, learned from sitting with teammates across language and cultural gaps; that a problem statement worth building for has to survive being questioned by people who weren't in the room when you wrote it; and that AI tools are most useful when you already know exactly what you're trying to say to them.</p>
+  </section>
+
+  <section class="entry reveal" id="week2">
+    <span class="kicker mono">Entry 02 &middot; Week Two</span>
+    <h2 class="display">Building &amp; Pitching</h2>
+
+    <p>Where Week One was about finding the right problem, Week Two was about proving our answer could survive contact with real users, real mentors, and a real deadline. Day Six opened with direct mentor guidance and a full round of feedback on our early prototype, and this is where I started actually building rather than just planning: using AI-assisted tools to turn our team's raw ideas into a working interface, then going back in manually to fix what the AI got wrong. That manual correction mattered — it was the first time I felt I understood a tool well enough to disagree with it.</p>
+
+    <p>Day Seven introduced the language of social enterprise properly: the business model canvas, impact modelling, and what it actually means to build a "blueprint" rather than a single fixed prototype. That distinction became the turning point of the week for me. Every time a mentor or teammate suggested a change, instead of treating it as a threat to something finished, I started treating our prototype as a living blueprint we could keep iterating until the whole team was satisfied — a small mindset shift that made feedback feel useful instead of disruptive.</p>
+
+    <p>Days Eight and Nine were the building sprint. We finalised our prototype under mentor review and panel discussion, thought hard about who our actual users would be, and I took ownership of the login page for our platform — later interlinking it to a parent dashboard and a student profile, one of the moments in the whole program I'm proudest of, because it was the first time a piece of the product I'd personally built connected cleanly to something a teammate had built. Alongside that, I worked on keeping our presentation seamless, making sure every teammate, including the ones less comfortable presenting, had a clear part to play and support if they faltered mid-pitch. We also picked up Canva for our final deck and recorded a working demo of our MVP, drawing on insights other teams shared about what had and hadn't landed with their own panels.</p>
+
+    <p>Day Ten was rehearsal and the final pitch itself — the "adjourning" stage we'd learned about on Day Two, arriving right on schedule. There wasn't a big AHA moment that day, just the quieter work of assembling everything we'd built into a presentation that had to make sense to people meeting our idea for the first time, followed by genuinely hard goodbyes.</p>
+
+    <p class="pullquote">Proudest of: a full peer-matching login-to-dashboard flow, built from an idea that was a half-joke four days earlier. Room to grow: locking down our shared "blueprint" language earlier, and rehearsing sooner rather than finishing our narrative the night before.</p>
+
+    <p>The knowledge that mattered most this week was concrete, not abstract: how a business model canvas forces you to answer questions a slide deck lets you avoid, how much a mentor's blunt feedback in a five-minute review can reshape a week of work, and how differently an idea reads once it has to survive being pitched out loud to people who can say no.</p>
+  </section>
+
+  <section class="entry reveal" id="final">
+    <span class="kicker mono">Entry 03 &middot; End of Program</span>
+    <h2 class="display">What We Built, What I Learned</h2>
+
+    <p>If someone asked me to compress ten days of SECIP into one lesson about innovation, it would be this: the hardest and most important part of building something new isn't the solution — it's staying honest about the problem for long enough that the solution actually fits it. We spent nearly three full days on Quality Education before we let ourselves get attached to an idea: mapping inequality and teacher shortages, hearing from a steering committee, sitting with the discomfort of not having an answer yet. It would have been easy to lock onto the first plausible idea on Day Two just to feel like we were making progress. We didn't, and the idea we eventually built — EduBridge, a peer-to-peer knowledge exchange where students barter tutoring in their strong subjects for tutoring in their weak ones — was better for having survived that patience.</p>
+
+    <p>What made the whole experience meaningful wasn't any single workshop; it was the compounding effect of building the same idea with the same five or six people for ten straight days, through forming, storming, norming, and performing exactly as the framework we learned on Day Two predicted. I watched myself become the person who made sure quieter teammates got space to speak, who moved conversations into a shared document so nothing meaningful got lost, and who ended up owning a real piece of our final product. Being trusted with that, and then actually shipping it, is the achievement I'm proudest of.</p>
+
+    <p>The most personally satisfying stretch was the physical prototyping around our "Tinder for tutors" concept. Before I touched a single line of AI-generated code, I built a paper version by hand: a cardboard phone case with tutor-profile cards you could flip through like a swipe deck. It sounds almost small next to the polished web app we eventually shipped, but that cardboard prototype is where the idea actually became real to me — where I understood in my hands, not just on a whiteboard, what a "match" between a student and a peer tutor should feel like.</p>
+
+    <p>My greatest challenge was less technical than interpersonal: learning to communicate across genuine language and confidence gaps within the team, in a way that didn't default to whoever was loudest or most fluent in English. That thread runs from Day One's introductions all the way through Day Eight's presentation prep, and I don't think I fully solved it — I think I got better at noticing when it was happening and making small corrections, which is probably the more honest and more useful skill to leave the program with.</p>
+
+    <p>If I had to name what I'm taking forward, it's not one specific tool, even though I did leave with real, practical fluency in mind-mapping, business model canvases, AI-assisted prototyping, and pitching under time pressure. It's a shift in how I approach any problem I'm handed from now on: define it slowly, prototype it cheaply and physically before you prototype it digitally, expect the team to storm before it performs, and treat feedback as a rewrite of the blueprint rather than a verdict on the work. Ten days ago I didn't know what a business model canvas was. Today I know how to take a peer-matching platform from a mind-map to a working login flow — and I know the version of me who did that got there by staying curious about a problem for longer than felt comfortable.</p>
+  </section>
+
+  <section class="spotlight reveal" id="prototype">
+    <span class="kicker mono">What Team 17 Built</span>
+    <h2 class="display">EduBridge — Prototyping "Tinder for Tutors"</h2>
+    <p class="desc">A bilingual peer-tutoring platform where students barter what they're strong in for what they need help with — matched, scheduled, and tracked through a Journey, an Exchange board, a note Vault, and a mentor Pathway. Below is the same swipe-to-match idea in the two forms I built it in: cardboard first, then code.</p>
+
+    <div class="links">
+      <a class="btn solid" href="https://gaokao-quest-hub.lovable.app/login" target="_blank" rel="noopener">Open live prototype &#8599;</a>
+      <a class="btn" href="https://docs.google.com/document/d/19P3CGh7-i9fHdYd3pHYclb9S5UhnGpQDXDyF08ZyydY/edit?usp=sharing" target="_blank" rel="noopener">Read our project doc &#8599;</a>
+    </div>
+
+    <div class="deck-area">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="tutor-card" id="tutorCard">
+              <span class="name" id="tcName">Wei</span>
+              <span class="grade mono" id="tcGrade">Grade 11</span>
+              <p class="row"><b>Teaches:</b> <span id="tcTeach">Advanced Math, English</span></p>
+              <p class="row"><b>Needs:</b> <span id="tcNeed">Physics</span></p>
+            </div>
+            <div class="swipe-btns">
+              <button class="pass mono" id="passBtn">&larr; Pass</button>
+              <button class="match mono" id="matchBtn">Match &rarr;</button>
+            </div>
+            <div class="swipe-status mono" id="swipeStatus">try swiping through our peer tutors</div>
+          </div>
+        </div>
+      </div>
+      <div class="deck-note">
+        <p><b>From cardboard to code.</b> Our Day 4 "big idea" started as a physical phone case cut from cardboard, with hand-drawn tutor profile cards tucked inside it — a low-fidelity way to test whether swiping through peer-tutor "matches" actually felt intuitive before we wrote a single line of the real thing.</p>
+        <p>The digital version above borrows that same card interaction: each profile shows what a peer <b>teaches</b> against what they <b>need</b>, so a match is really a trade. Try the buttons — this mini demo cycles through four sample tutors the way our onboarding flow does inside EduBridge itself.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="fname display">Poushya Meghana</div>
+  <p>O.P. Jindal Global University &middot; Team 17 &middot; SDG 4: Quality Education<br>
+  Built for the SECIP 2026 intensive program.</p>
+  <p><a href="https://gaokao-quest-hub.lovable.app/login" target="_blank" rel="noopener">EduBridge prototype</a> &middot; <a href="https://docs.google.com/document/d/19P3CGh7-i9fHdYd3pHYclb9S5UhnGpQDXDyF08ZyydY/edit?usp=sharing" target="_blank" rel="noopener">Project document</a></p>
+</footer>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+
+  // day tape jump
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const id = chip.getAttribute('data-jump');
+      const target = document.getElementById(id);
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // tutor swipe demo
+  const tutors = [
+    {name:"Wei", grade:"Grade 11", teach:"Advanced Math, English", need:"Physics"},
+    {name:"Aiko", grade:"Grade 12", teach:"Chemistry, Mandarin", need:"History"},
+    {name:"Priya", grade:"Grade 10", teach:"English, Geography", need:"Advanced Math"},
+    {name:"Diego", grade:"Grade 11", teach:"Physics, Spanish", need:"Chinese"}
+  ];
+  let idx = 0;
+  const card = document.getElementById('tutorCard');
+  const status = document.getElementById('swipeStatus');
+
+  function renderCard(){
+    const t = tutors[idx % tutors.length];
+    document.getElementById('tcName').textContent = t.name;
+    document.getElementById('tcGrade').textContent = t.grade;
+    document.getElementById('tcTeach').textContent = t.teach;
+    document.getElementById('tcNeed').textContent = t.need;
+  }
+  renderCard();
+
+  function nextCard(msg){
+    card.classList.add('leaving');
+    status.textContent = msg;
+    setTimeout(()=>{
+      idx++;
+      renderCard();
+      card.classList.remove('leaving');
+    }, 320);
+  }
+
+  document.getElementById('matchBtn').addEventListener('click', ()=>{
+    const t = tutors[idx % tutors.length];
+    nextCard(`matched with ${t.name} &mdash; barter set up`.replace('&mdash;','—'));
+  });
+  document.getElementById('passBtn').addEventListener('click', ()=>{
+    nextCard('passed &mdash; showing next tutor'.replace('&mdash;','—'));
+  });
+</script>
+
+</body>
+</html>
